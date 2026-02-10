@@ -1,33 +1,400 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Мой сайт</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>14 февраля 💗</title>
+
+  <!-- Шрифт для красивого заголовка -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: white;
-      display: flex;
-      height: 100vh;
-      align-items: center;
-      justify-content: center;
+    :root{
+      --bg1:#ffd6e7;
+      --bg2:#ffc0d8;
+      --card1:#ffb7cf;
+      --card2:#ff93ba;
+      --accent:#ff4f9a;
+      --accent2:#ff77b5;
+      --text:#ffffff;
+      --soft:#ffffffcc;
+      --shadow: 0 18px 60px rgba(255, 79, 154, 0.35);
+      --shadow2: 0 10px 30px rgba(0,0,0,0.12);
+      --radius: 28px;
+    }
+
+    *{ box-sizing: border-box; }
+    html,body{ height:100%; }
+
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 700px at 20% 10%, #fff6fa 0%, transparent 60%),
+                  radial-gradient(900px 600px at 90% 30%, #ffe5f0 0%, transparent 55%),
+                  linear-gradient(135deg, var(--bg1), var(--bg2));
+      overflow:hidden;
+      color: var(--text);
+    }
+
+    /* Плавающие сердечки на фоне */
+    .hearts{
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 0.9;
+    }
+    .heart{
+      position:absolute;
+      width: 22px;
+      height: 22px;
+      transform: rotate(45deg);
+      background: rgba(255,255,255,0.35);
+      filter: drop-shadow(0 6px 12px rgba(255,79,154,0.22));
+      animation: floatUp linear infinite;
+      border-radius: 6px;
+    }
+    .heart:before,
+    .heart:after{
+      content:"";
+      position:absolute;
+      width: 22px;
+      height: 22px;
+      background: inherit;
+      border-radius: 50%;
+    }
+    .heart:before{ left:-11px; top:0; }
+    .heart:after{ top:-11px; left:0; }
+
+    @keyframes floatUp{
+      0%   { transform: translateY(120vh) rotate(45deg) scale(0.9); opacity: 0; }
+      10%  { opacity: 1; }
+      100% { transform: translateY(-30vh) rotate(45deg) scale(1.15); opacity: 0; }
+    }
+
+    /* Навбар */
+    .topbar{
+      position: fixed;
+      top: 20px;
+      left: 0;
+      right: 0;
+      display:flex;
+      justify-content:center;
+      z-index: 5;
+    }
+    .nav-pill{
+      background: rgba(255,255,255,0.35);
+      border: 1px solid rgba(255,255,255,0.35);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 12px 22px;
+      border-radius: 999px;
+      box-shadow: var(--shadow2);
+      color: rgba(255,255,255,0.95);
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    /* Центральная карточка */
+    .wrap{
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 32px 16px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .card{
+      width: min(900px, 92vw);
+      background: linear-gradient(145deg, rgba(255,255,255,0.18), rgba(255,255,255,0.10)),
+                  linear-gradient(145deg, rgba(255,183,207,0.55), rgba(255,147,186,0.45));
+      border: 1px solid rgba(255,255,255,0.30);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      padding: 48px 26px 34px;
+      position: relative;
+      overflow: hidden;
       text-align: center;
     }
-    button {
-      padding: 12px 20px;
-      font-size: 16px;
+
+    /* Лёгкая "пленка" */
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-120px -120px auto auto;
+      width: 360px;
+      height: 360px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.28), transparent 60%);
+      transform: rotate(12deg);
+      pointer-events:none;
+    }
+
+    /* Декор: шарики слева */
+    .balloons{
+      position:absolute;
+      left: 22px;
+      top: 110px;
+      width: 140px;
+      height: 220px;
+      opacity: 0.95;
+      filter: drop-shadow(0 14px 18px rgba(0,0,0,0.10));
+    }
+
+    /* Декор: подарок справа */
+    .gift{
+      position:absolute;
+      right: 26px;
+      top: 120px;
+      width: 150px;
+      height: 150px;
+      opacity: 0.95;
+      filter: drop-shadow(0 14px 18px rgba(0,0,0,0.10));
+    }
+
+    h1{
+      margin: 0;
+      font-size: clamp(32px, 5vw, 46px);
+      font-weight: 800;
+      text-shadow: 0 10px 28px rgba(0,0,0,0.18);
+    }
+    .script{
+      font-family: Pacifico, cursive;
+      font-weight: 400;
+      font-size: clamp(56px, 7vw, 78px);
+      margin-top: 10px;
+      line-height: 1.05;
+      text-shadow: 0 12px 30px rgba(0,0,0,0.18);
+    }
+
+    .sub{
+      margin: 16px auto 0;
+      max-width: 620px;
+      color: var(--soft);
+      font-size: clamp(14px, 2.2vw, 18px);
+      line-height: 1.6;
+    }
+
+    .btn{
+      margin-top: 26px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 14px 26px;
+      border-radius: 999px;
       border: none;
-      border-radius: 8px;
       cursor: pointer;
+      font-weight: 800;
+      font-size: 18px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 16px 40px rgba(255,79,154,0.45);
+      transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+    }
+    .btn:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 20px 50px rgba(255,79,154,0.55);
+      filter: brightness(1.03);
+    }
+    .btn:active{
+      transform: translateY(0px) scale(0.99);
+    }
+
+    .footer{
+      margin-top: 26px;
+      color: rgba(255,255,255,0.85);
+      font-size: 14px;
+    }
+
+    /* Окно поздравления */
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%) translateY(30px);
+      background: rgba(255,255,255,0.35);
+      border: 1px solid rgba(255,255,255,0.35);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 14px 18px;
+      border-radius: 16px;
+      box-shadow: var(--shadow2);
+      color: rgba(255,255,255,0.95);
+      font-weight: 700;
+      opacity: 0;
+      transition: opacity .25s ease, transform .25s ease;
+      z-index: 10;
+      max-width: min(520px, 92vw);
+      text-align: center;
+    }
+    .toast.show{
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Адаптив: если узкий экран — прячем большие декоры */
+    @media (max-width: 620px){
+      .balloons, .gift{ display:none; }
+      .card{ padding-top: 40px; }
     }
   </style>
 </head>
+
 <body>
-  <div>
-    <h1>Привет! 🚀</h1>
-    <p>Это мой первый сайт на Vercel</p>
-    <button onclick="alert('Работает!')">Нажми меня</button>
+  <div class="hearts" aria-hidden="true" id="hearts"></div>
+
+  <div class="topbar">
+    <div class="nav-pill">Home</div>
   </div>
+
+  <main class="wrap">
+    <section class="card">
+      <!-- SVG Шарики (сердечки) -->
+      <svg class="balloons" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="b1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffffff" stop-opacity="0.65"/>
+            <stop offset="1" stop-color="#ff6cab" stop-opacity="0.75"/>
+          </linearGradient>
+          <linearGradient id="b2" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffffff" stop-opacity="0.6"/>
+            <stop offset="1" stop-color="#ff9ac8" stop-opacity="0.75"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Простая форма сердца-шарика -->
+        <path d="M60 90
+                 C60 60 90 55 100 75
+                 C110 55 140 60 140 90
+                 C140 120 100 140 100 155
+                 C100 140 60 120 60 90 Z"
+              fill="url(#b1)"/>
+        <path d="M95 55
+                 C95 30 125 28 135 48
+                 C145 28 175 30 175 55
+                 C175 85 135 100 135 115
+                 C135 100 95 85 95 55 Z"
+              fill="url(#b2)"/>
+
+        <!-- Нити -->
+        <path d="M100 155 C95 185 95 210 100 250" stroke="rgba(255,255,255,0.6)" stroke-width="3" fill="none"/>
+        <path d="M135 115 C130 160 135 205 125 255" stroke="rgba(255,255,255,0.6)" stroke-width="3" fill="none"/>
+      </svg>
+
+      <!-- SVG Подарок-сердце -->
+      <svg class="gift" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ff9ac8"/>
+            <stop offset="1" stop-color="#ff4f9a"/>
+          </linearGradient>
+          <linearGradient id="r1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffffff" stop-opacity="0.85"/>
+            <stop offset="1" stop-color="#ffd1e6" stop-opacity="0.75"/>
+          </linearGradient>
+        </defs>
+
+        <path d="M110 60
+                 C110 30 145 25 160 45
+                 C175 25 205 35 200 70
+                 C195 115 145 135 110 170
+                 C75 135 25 115 20 70
+                 C15 35 45 25 60 45
+                 C75 25 110 30 110 60 Z"
+              fill="url(#g1)" opacity="0.95"/>
+
+        <!-- Бантик -->
+        <path d="M110 88
+                 C95 75 70 75 65 95
+                 C60 115 85 120 110 104
+                 C135 120 160 115 155 95
+                 C150 75 125 75 110 88 Z"
+              fill="url(#r1)"/>
+        <circle cx="110" cy="102" r="10" fill="rgba(255,255,255,0.75)"/>
+        <path d="M110 104 C110 130 110 145 110 170" stroke="rgba(255,255,255,0.65)" stroke-width="6" />
+      </svg>
+
+      <h1>Happy</h1>
+      <div class="script">Valentine’s Day!</div>
+
+      <p class="sub">
+        Желаю тебе дня, наполненного теплом, улыбками и любовью 💗
+      </p>
+
+      <button class="btn" id="btn">
+        <span>Поздравить!</span> <span aria-hidden="true">💝</span>
+      </button>
+
+      <div class="footer">С Днём святого Валентина! 💗</div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast">Ты самый(ая) классный(ая)! Пусть день будет сладким 🍓💗</div>
+
+  <script>
+    // Генерация плавающих сердечек
+    const hearts = document.getElementById("hearts");
+    const COUNT = 24;
+
+    function rand(min, max){ return Math.random() * (max - min) + min; }
+
+    for (let i = 0; i < COUNT; i++){
+      const h = document.createElement("div");
+      h.className = "heart";
+
+      const size = rand(12, 28);
+      h.style.width = size + "px";
+      h.style.height = size + "px";
+
+      // Чтобы :before/:after совпадали с размером
+      h.style.setProperty("--s", size + "px");
+
+      h.style.left = rand(0, 100) + "vw";
+      h.style.animationDuration = rand(6, 14) + "s";
+      h.style.animationDelay = rand(0, 8) + "s";
+
+      // Немного разные оттенки (через прозрачность)
+      const op = rand(0.18, 0.45);
+      h.style.background = `rgba(255,255,255,${op})`;
+
+      hearts.appendChild(h);
+    }
+
+    // Кнопка: показывает тост и запускает "конфетти-сердца"
+    const btn = document.getElementById("btn");
+    const toast = document.getElementById("toast");
+
+    function showToast(){
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+
+    function burstHearts(){
+      for (let i = 0; i < 16; i++){
+        const h = document.createElement("div");
+        h.className = "heart";
+        const size = rand(10, 20);
+        h.style.width = size + "px";
+        h.style.height = size + "px";
+        h.style.left = (50 + rand(-8, 8)) + "vw";
+        h.style.animationDuration = rand(2.5, 4) + "s";
+        h.style.animationDelay = "0s";
+        h.style.background = `rgba(255,255,255,${rand(0.25, 0.55)})`;
+        hearts.appendChild(h);
+
+        // удалить после анимации
+        setTimeout(() => h.remove(), 4500);
+      }
+    }
+
+    btn.addEventListener("click", () => {
+      showToast();
+      burstHearts();
+    });
+  </script>
 </body>
 </html>
