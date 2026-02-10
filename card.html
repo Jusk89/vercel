@@ -130,7 +130,10 @@
       border-radius: 22px;
       box-shadow: var(--shadow2);
       overflow:hidden;
-      background: rgba(255,255,255,0.9);
+      background: linear-gradient(135deg,
+  rgba(255, 240, 248, 0.85),
+  rgba(255, 210, 232, 0.65)
+);
       border: 1px solid rgba(255,255,255,0.35);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
@@ -139,7 +142,9 @@
     /* Нижняя часть конверта */
     .env-bottom{
       position:absolute; inset:0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0.10));
+      background: linear-gradient(135deg,
+    rgba(255,255,255,0.20),
+    rgba(255,255,255,0.08));
       z-index: 1;
     }
 
@@ -151,10 +156,12 @@
     .env-left{
       left:0;
       clip-path: polygon(0 0, 100% 50%, 0 100%);
+      z-index: 3;
     }
     .env-right{
       right:0;
       clip-path: polygon(100% 0, 0 50%, 100% 100%);
+      z-index: 3;
     }
 
     /* Крышка конверта */
@@ -166,7 +173,7 @@
       transform: rotateX(0deg);
       transition: transform .6s ease;
       border-bottom: 1px solid rgba(255,255,255,0.22);
-      z-index: 3;
+      z-index: 4;
     }
 
     /* Письмо */
@@ -182,8 +189,9 @@
      border-radius: 18px;
      box-shadow: 0 18px 40px rgba(0,0,0,0.18);
 
-     transform: translateY(60%);
-     transition: transform .7s ease;
+     transform: translateY(78%); /* сильнее прячем */
+  opacity: 0.0;
+  transition: transform .7s ease, opacity .35s ease;
 
      padding: 18px 18px 20px;
 
@@ -207,7 +215,11 @@
     }
 
     .open .env-flap{ transform: rotateX(165deg); }
-    .open .letter{ transform: translateY(0%); }
+    .open .letter{ 
+        transform: translateY(8%);  /* выезжает вверх */
+        opacity: 1;
+        z-index: 5;
+ }
 
     .controls{
       display:flex;
