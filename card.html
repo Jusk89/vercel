@@ -321,10 +321,32 @@
     .toast.show{ opacity:1; transform: translateX(-50%) translateY(0); }
 
     @media (max-width: 860px){
-      .layout{ grid-template-columns: 1fr; }
-      body{ overflow:auto; }
-      .hearts{ position:absolute; }
-    }
+  body{ overflow:auto; }
+
+  .wrap{
+    align-items: flex-start;   /* вместо center */
+    height: auto;
+    min-height: 100svh;        /* норм для iPhone Safari */
+    padding-top: 16px;
+    padding-bottom: 24px;
+  }
+
+  .layout{
+    grid-template-columns: 1fr;
+  }
+
+  .envelope-area,
+  .side{
+    min-height: auto;          /* убираем 520px */
+  }
+
+  .envelope{
+    width: 100%;
+    max-width: 520px;
+    margin: 8px auto 0;
+  }
+}
+
   </style>
 </head>
 
