@@ -264,7 +264,7 @@
           <div class="ico">🕒</div>
           <div>
             <div class="key">Время</div>
-            <div class="val" id="whenLine">14 февраля, 18:30</div>
+            <div class="val" id="whenLine">14 февраля, 15:30</div>
           </div>
         </div>
 
@@ -335,9 +335,9 @@
 
     // Текст/детали (можешь поменять)
     const DEFAULTS = {
-      when: "14 февраля, 18:30",
-      addr: "Алматы, ул. Абая 10",
-      place: "Кофейня у парка",
+      when: "14 февраля, 15:30",
+      addr: "Я заберу тебя сам",
+      place: "Кино 'Марти великолепный'",
       note: "Я буду ждать у входа 💗"
     };
 
@@ -415,7 +415,7 @@
     function setMapsLink(address){
       // Универсальный вариант: откроет Apple Maps/Google Maps в зависимости от устройства
       const q = encodeURIComponent(address || "");
-      mapsBtn.href = `https://www.google.com/maps/search/?api=1&query=${q}`;
+      mapsBtn.href = `https://2gis.kz/almaty/geo/9429940000788684/76.891043,43.202654=${q}`;
     }
 
     function apply(details){
