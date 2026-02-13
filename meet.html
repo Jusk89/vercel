@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>До встречи ⏳💗</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1:#ffd6e7; --bg2:#ffc0d8;
+      --accent:#ff4f9a; --accent2:#ff77b5;
+      --text:#fff; --soft:#ffffffcc;
+      --shadow: 0 18px 60px rgba(255,79,154,0.35);
+      --shadow2: 0 10px 30px rgba(0,0,0,0.12);
+      --radius: 28px;
+      --glass: rgba(255,255,255,0.22);
+      --border: rgba(255,255,255,0.35);
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 700px at 20% 10%, #fff6fa 0%, transparent 60%),
+                  radial-gradient(900px 600px at 90% 30%, #ffe5f0 0%, transparent 55%),
+                  linear-gradient(135deg, var(--bg1), var(--bg2));
+      overflow:auto;
+    }
+
+    /* сердечки */
+    .hearts{ position:fixed; inset:0; pointer-events:none; opacity:.85; }
+    .heart{
+      position:absolute; width:16px; height:16px;
+      transform: rotate(45deg);
+      background: rgba(255,255,255,0.30);
+      border-radius: 5px;
+      filter: drop-shadow(0 6px 12px rgba(255,79,154,0.22));
+      animation: floatUp linear infinite;
+    }
+    .heart:before,.heart:after{ content:""; position:absolute; width:16px; height:16px; background:inherit; border-radius:50%; }
+    .heart:before{ left:-8px; top:0; } .heart:after{ top:-8px; left:0; }
+    @keyframes floatUp{
+      0%{ transform: translateY(120vh) rotate(45deg) scale(.9); opacity:0; }
+      12%{ opacity:1; }
+      100%{ transform: translateY(-30vh) rotate(45deg) scale(1.15); opacity:0; }
+    }
+
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      padding: 14px 16px;
+      display:flex;
+      justify-content:center;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.12);
+      border-bottom: 1px solid rgba(255,255,255,0.20);
+    }
+    .nav{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content:center;
+    }
+    .pill{
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.25);
+      border: 1px solid rgba(255,255,255,0.35);
+      box-shadow: var(--shadow2);
+      color: rgba(255,255,255,0.95);
+      text-decoration:none;
+      font-weight: 800;
+    }
+
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 22px 16px 40px;
+      display:flex;
+      flex-direction:column;
+      gap: 16px;
+    }
+
+    .hero{
+      background: linear-gradient(145deg, rgba(255,255,255,0.18), rgba(255,255,255,0.10)),
+                  linear-gradient(145deg, rgba(255,183,207,0.55), rgba(255,147,186,0.45));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px 18px;
+      position:relative;
+      overflow:hidden;
+      text-align:center;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:-120px -120px auto auto;
+      width: 360px; height: 360px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.28), transparent 60%);
+      transform: rotate(12deg);
+      pointer-events:none;
+    }
+    h1{
+      margin: 0;
+      font-size: clamp(22px, 4vw, 34px);
+      font-weight: 900;
+      text-shadow: 0 10px 22px rgba(0,0,0,0.12);
+    }
+    .script{
+      font-family: Pacifico, cursive;
+      margin-top: 6px;
+      font-size: clamp(34px, 6vw, 54px);
+      line-height: 1.1;
+      text-shadow: 0 12px 26px rgba(0,0,0,0.15);
+    }
+    .sub{
+      margin: 12px auto 0;
+      max-width: 720px;
+      color: var(--soft);
+      line-height: 1.6;
+    }
+
+    /* таймер */
+    .timer{
+      margin-top: 16px;
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .unit{
+      background: rgba(255,255,255,0.22);
+      border: 1px solid rgba(255,255,255,0.32);
+      border-radius: 22px;
+      box-shadow: var(--shadow2);
+      padding: 14px 10px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .num{
+      font-size: clamp(26px, 5.5vw, 44px);
+      font-weight: 900;
+      line-height: 1;
+    }
+    .lbl{
+      margin-top: 6px;
+      font-weight: 800;
+      opacity: .9;
+      font-size: 13px;
+      letter-spacing: .2px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .card{
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      padding: 18px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .card h2{
+      margin: 0 0 12px;
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .row{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.18);
+    }
+    .row:last-child{ border-bottom: none; }
+    .ico{ width: 26px; text-align:center; opacity:.95; }
+    .key{ font-weight: 900; }
+    .val{ color: rgba(255,255,255,0.92); line-height: 1.45; }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: none;
+      cursor:pointer;
+      font-weight: 900;
+      color:#fff;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 16px 38px rgba(255,79,154,0.45);
+      text-decoration:none;
+      transition: transform .15s ease, filter .15s ease;
+    }
+    .btn:hover{ transform: translateY(-2px); filter: brightness(1.03); }
+    .btn.secondary{
+      background: rgba(255,255,255,0.25);
+      border: 1px solid rgba(255,255,255,0.35);
+      box-shadow: var(--shadow2);
+    }
+
+    .note{
+      margin-top: 10px;
+      color: rgba(255,255,255,0.85);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 860px){
+      .grid{ grid-template-columns: 1fr; }
+      .timer{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="hearts" aria-hidden="true" id="hearts"></div>
+
+  <header class="topbar">
+    <nav class="nav">
+      <a class="pill" href="index.html">Главная</a>
+      <a class="pill" href="card.html">Открытка</a>
+      <a class="pill" href="meet.html">Таймер</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>До нашей встречи осталось</h1>
+      <div class="script">совсем чуть-чуть 💗</div>
+      <p class="sub" id="meetText">Считаем время до момента, когда мы увидимся ✨</p>
+
+      <div class="timer" aria-label="Таймер обратного отсчёта">
+        <div class="unit"><div class="num" id="d">0</div><div class="lbl">ДНЕЙ</div></div>
+        <div class="unit"><div class="num" id="h">0</div><div class="lbl">ЧАСОВ</div></div>
+        <div class="unit"><div class="num" id="m">0</div><div class="lbl">МИНУТ</div></div>
+        <div class="unit"><div class="num" id="s">0</div><div class="lbl">СЕКУНД</div></div>
+      </div>
+
+      <p class="note" id="status"></p>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <h2>Подробности встречи</h2>
+
+        <div class="row">
+          <div class="ico">🕒</div>
+          <div>
+            <div class="key">Время</div>
+            <div class="val" id="whenLine">14 февраля, 18:30</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="ico">📍</div>
+          <div>
+            <div class="key">Адрес</div>
+            <div class="val" id="addrLine">Укажи адрес тут</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="ico">🏡</div>
+          <div>
+            <div class="key">Место</div>
+            <div class="val" id="placeLine">Например: любимая кофейня</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="ico">📝</div>
+          <div>
+            <div class="key">Заметка</div>
+            <div class="val" id="noteLine">Например: я буду ждать у входа 💗</div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
+          <a class="btn" id="mapsBtn" target="_blank" rel="noopener">Открыть в картах 🗺️</a>
+          <a class="btn secondary" href="index.html">← На главную</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Изменить детали (прямо тут)</h2>
+
+        <div style="display:grid; gap:10px;">
+          <div>
+            <label style="font-weight:900;">Адрес</label>
+            <input id="addrInp" placeholder="Например: Алматы, ул. Абая 10"
+              style="width:100%; border-radius:16px; border:1px solid rgba(255,255,255,0.35);
+              background:rgba(255,255,255,0.16); padding:12px; color:#fff; outline:none;">
+          </div>
+          <div>
+            <label style="font-weight:900;">Место</label>
+            <input id="placeInp" placeholder="Например: Coffee Boom"
+              style="width:100%; border-radius:16px; border:1px solid rgba(255,255,255,0.35);
+              background:rgba(255,255,255,0.16); padding:12px; color:#fff; outline:none;">
+          </div>
+          <div>
+            <label style="font-weight:900;">Заметка</label>
+            <input id="noteInp" placeholder="Например: возьми тёплую куртку 😄"
+              style="width:100%; border-radius:16px; border:1px solid rgba(255,255,255,0.35);
+              background:rgba(255,255,255,0.16); padding:12px; color:#fff; outline:none;">
+          </div>
+
+          <button class="btn" id="saveBtn" type="button">Сохранить ✅</button>
+          <p class="note">Сохранение работает через localStorage (на этом устройстве).</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // === 1) НАСТРОЙ ДАТЫ ВСТРЕЧИ (измени под себя) ===
+    // Формат: "YYYY-MM-DDTHH:MM:SS" (локальное время устройства)
+    const MEET_AT = new Date("2026-02-14T15:30:00");
+
+    // Текст/детали (можешь поменять)
+    const DEFAULTS = {
+      when: "14 февраля, 18:30",
+      addr: "Алматы, ул. Абая 10",
+      place: "Кофейня у парка",
+      note: "Я буду ждать у входа 💗"
+    };
+
+    // === 2) Таймер ===
+    const elD = document.getElementById("d");
+    const elH = document.getElementById("h");
+    const elM = document.getElementById("m");
+    const elS = document.getElementById("s");
+    const status = document.getElementById("status");
+
+    function pad(n){ return String(n).padStart(2, "0"); }
+
+    function tick(){
+      const now = new Date();
+      let diff = MEET_AT - now;
+
+      if (diff <= 0){
+        elD.textContent = "0";
+        elH.textContent = "00";
+        elM.textContent = "00";
+        elS.textContent = "00";
+        status.textContent = "Ура! Время встречи уже наступило 💗";
+        return;
+      }
+
+      const sec = Math.floor(diff / 1000);
+      const days = Math.floor(sec / 86400);
+      const hours = Math.floor((sec % 86400) / 3600);
+      const mins = Math.floor((sec % 3600) / 60);
+      const secs = sec % 60;
+
+      elD.textContent = days;
+      elH.textContent = pad(hours);
+      elM.textContent = pad(mins);
+      elS.textContent = pad(secs);
+
+      status.textContent = `Встреча: ${DEFAULTS.when} • осталось ${days} дн.`;
+    }
+
+    setInterval(tick, 1000);
+    tick();
+
+    // === 3) Сердечки фон ===
+    const hearts = document.getElementById("hearts");
+    function rand(min,max){ return Math.random()*(max-min)+min; }
+    for (let i=0;i<18;i++){
+      const h = document.createElement("div");
+      h.className="heart";
+      h.style.left = rand(0,100) + "vw";
+      h.style.animationDuration = rand(7,15) + "s";
+      h.style.animationDelay = rand(0,8) + "s";
+      h.style.background = `rgba(255,255,255,${rand(0.18,0.42)})`;
+      hearts.appendChild(h);
+    }
+
+    // === 4) Детали встречи + карты ===
+    const whenLine = document.getElementById("whenLine");
+    const addrLine = document.getElementById("addrLine");
+    const placeLine = document.getElementById("placeLine");
+    const noteLine = document.getElementById("noteLine");
+    const mapsBtn = document.getElementById("mapsBtn");
+
+    const addrInp = document.getElementById("addrInp");
+    const placeInp = document.getElementById("placeInp");
+    const noteInp = document.getElementById("noteInp");
+    const saveBtn = document.getElementById("saveBtn");
+
+    function getSaved(){
+      try{
+        const raw = localStorage.getItem("meet_details");
+        return raw ? JSON.parse(raw) : null;
+      }catch(e){ return null; }
+    }
+
+    function setMapsLink(address){
+      // Универсальный вариант: откроет Apple Maps/Google Maps в зависимости от устройства
+      const q = encodeURIComponent(address || "");
+      mapsBtn.href = `https://www.google.com/maps/search/?api=1&query=${q}`;
+    }
+
+    function apply(details){
+      whenLine.textContent = details.when;
+      addrLine.textContent = details.addr;
+      placeLine.textContent = details.place;
+      noteLine.textContent = details.note;
+
+      addrInp.value = details.addr;
+      placeInp.value = details.place;
+      noteInp.value = details.note;
+
+      setMapsLink(details.addr);
+    }
+
+    const saved = getSaved();
+    const details = saved ? { ...DEFAULTS, ...saved } : DEFAULTS;
+    apply(details);
+
+    saveBtn.addEventListener("click", () => {
+      const next = {
+        when: DEFAULTS.when,
+        addr: addrInp.value.trim() || DEFAULTS.addr,
+        place: placeInp.value.trim() || DEFAULTS.place,
+        note: noteInp.value.trim() || DEFAULTS.note
+      };
+      localStorage.setItem("meet_details", JSON.stringify(next));
+      apply(next);
+      saveBtn.textContent = "Сохранено ✅";
+      setTimeout(() => saveBtn.textContent = "Сохранить ✅", 1200);
+    });
+  </script>
+</body>
+</html>
